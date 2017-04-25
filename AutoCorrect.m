@@ -33,7 +33,7 @@ static AutoCorrect* sharedInstance = nil;
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         // Open the file

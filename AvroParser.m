@@ -30,7 +30,7 @@ static AvroParser* sharedInstance = nil;
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         NSError *error = nil;
@@ -45,12 +45,12 @@ static AvroParser* sharedInstance = nil;
                 @throw error;
                 // @throw [NSException exceptionWithName:@"AvroParser init" reason:@"Error parsing JSON" userInfo:nil];
             } else {
-                _vowel = [[NSString alloc] initWithString:[jsonArray objectForKey:@"vowel"]];
-                _consonant = [[NSString alloc] initWithString:[jsonArray objectForKey:@"consonant"]];
-                _number = [[NSString alloc] initWithString:[jsonArray objectForKey:@"number"]];
-                _casesensitive = [[NSString alloc] initWithString:[jsonArray objectForKey:@"casesensitive"]];
-                _patterns = [[NSArray alloc] initWithArray:[jsonArray objectForKey:@"patterns"]];
-                _maxPatternLength = [[[_patterns objectAtIndex:0] objectForKey:@"find"] length];
+                _vowel = [[NSString alloc] initWithString:jsonArray[@"vowel"]];
+                _consonant = [[NSString alloc] initWithString:jsonArray[@"consonant"]];
+                _number = [[NSString alloc] initWithString:jsonArray[@"number"]];
+                _casesensitive = [[NSString alloc] initWithString:jsonArray[@"casesensitive"]];
+                _patterns = [[NSArray alloc] initWithArray:jsonArray[@"patterns"]];
+                _maxPatternLength = [_patterns[0][@"find"] length];
             }
 
         } else {
@@ -62,14 +62,14 @@ static AvroParser* sharedInstance = nil;
 
 
 - (NSString*)parse:(NSString *)string {
-    if (!string || [string length] == 0) {
+    if (!string || string.length == 0) {
         return @"";
     }
 
     NSString * fixed = [self fix:string];
     NSMutableString* output = [[NSMutableString alloc] initWithCapacity:0];
 
-    NSInteger len = [fixed length], cur;
+    NSInteger len = fixed.length, cur;
     for(cur = 0; cur < len; ++cur) {
         NSInteger start = cur, end;
         BOOL matched = FALSE;
@@ -81,23 +81,23 @@ static AvroParser* sharedInstance = nil;
                 NSString* chunk = [fixed substringWithRange:NSMakeRange(start, chunkLen)];
 
                 // Binary Search
-                NSInteger left = 0, right = [_patterns count] - 1, mid;
+                NSInteger left = 0, right = _patterns.count - 1, mid;
                 while(right >= left) {
                     mid = (right + left) / 2;
-                    NSDictionary* pattern = [_patterns objectAtIndex:mid];
-                    NSString* find = [pattern objectForKey:@"find"];
+                    NSDictionary* pattern = _patterns[mid];
+                    NSString* find = pattern[@"find"];
                     if([find isEqualToString:chunk]) {
-                        NSArray* rules = [pattern objectForKey:@"rules"];
+                        NSArray* rules = pattern[@"rules"];
                         for(NSDictionary* rule in rules) {
 
                             BOOL replace = TRUE;
                             NSInteger chk = 0;
-                            NSArray* matches = [rule objectForKey:@"matches"];
+                            NSArray* matches = rule[@"matches"];
                             for(NSDictionary* match in matches) {
-                                NSString* value = [match objectForKey:@"value"];
-                                NSString* type = [match objectForKey:@"type"];
-                                NSString* scope = [match objectForKey:@"scope"];
-                                BOOL isNegative = [[match objectForKey:@"negative"] boolValue];
+                                NSString* value = match[@"value"];
+                                NSString* type = match[@"type"];
+                                NSString* scope = match[@"scope"];
+                                BOOL isNegative = [match[@"negative"] boolValue];
 
                                 if([type isEqualToString:@"suffix"]) {
                                     chk = end;
@@ -170,11 +170,11 @@ static AvroParser* sharedInstance = nil;
                                     NSInteger s, e;
                                     if([type isEqualToString:@"suffix"]) {
                                         s = end;
-                                        e = end + [value length];
+                                        e = end + value.length;
                                     }
                                     // Prefix
                                     else {
-                                        s = start - [value length];
+                                        s = start - value.length;
                                         e = start;
                                     }
                                     if(![self isExact:value heystack:fixed start:(int)s end:(int)e not:isNegative]) {
@@ -185,7 +185,7 @@ static AvroParser* sharedInstance = nil;
                             }
 
                             if(replace) {
-                                [output appendString:[rule objectForKey:@"replace"]];
+                                [output appendString:rule[@"replace"]];
                                 cur = end - 1;
                                 matched = TRUE;
                                 break;
@@ -196,13 +196,13 @@ static AvroParser* sharedInstance = nil;
                         if(matched == TRUE) break;
 
                         // Default
-                        [output appendString:[pattern objectForKey:@"replace"]];
+                        [output appendString:pattern[@"replace"]];
                         cur = end - 1;
                         matched = TRUE;
                         break;
                     }
-                    else if ([find length] > [chunk length] ||
-                             ([find length] == [chunk length] && [find compare:chunk] == NSOrderedAscending)) {
+                    else if (find.length > chunk.length ||
+                             (find.length == chunk.length && [find compare:chunk] == NSOrderedAscending)) {
                         left = mid + 1;
                     } else {
                         right = mid - 1;
@@ -226,7 +226,7 @@ static AvroParser* sharedInstance = nil;
 - (BOOL)inString:(NSString*) str c:(unichar) c {
     // Making it lowercase for checking
     c = [self smallCap:c];
-    NSInteger i, len = [str length];
+    NSInteger i, len = str.length;
     for (i = 0; i < len; ++i) {
         if ([str characterAtIndex:i] == c) {
             return TRUE;
@@ -260,7 +260,7 @@ static AvroParser* sharedInstance = nil;
 - (BOOL)isExact:(NSString*) needle heystack:(NSString*)heystack start:(int)start end:(int)end not:(BOOL)not {
     // NSLog(@"Cut: %@", [heystack substringWithRange:NSMakeRange(start, end)]);
     int len = end - start;
-    return ((start >= 0 && end < [heystack length]
+    return ((start >= 0 && end < heystack.length
              && [[heystack substringWithRange:NSMakeRange(start, len)] isEqualToString:needle]) ^ not);
 }
 
@@ -273,7 +273,7 @@ static AvroParser* sharedInstance = nil;
 
 - (NSString*)fix:(NSString *)string {
     NSMutableString* fixed = [[NSMutableString alloc] initWithCapacity:0];
-    NSInteger i, len = [string length];
+    NSInteger i, len = string.length;
     for (i = 0; i < len; ++i) {
         unichar c = [string characterAtIndex:i];
         if (![self isCaseSensitive:c]) {

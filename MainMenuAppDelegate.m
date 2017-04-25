@@ -25,7 +25,7 @@
 	NSMenuItem* preferences = [_menu itemWithTag:1];
 	
 	if (preferences) {
-		[preferences setAction:@selector(showPreferences:)];
+		preferences.action = @selector(showPreferences:);
 	}
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"IncludeDictionary"]) {

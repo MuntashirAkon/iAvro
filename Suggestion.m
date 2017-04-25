@@ -38,7 +38,7 @@ static Suggestion* sharedInstance = nil;
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         _suggestions = [[NSMutableArray alloc] initWithCapacity:0];
@@ -48,7 +48,7 @@ static Suggestion* sharedInstance = nil;
 
 
 - (NSMutableArray*)getList:(NSString*)term {
-    if (term && [term length] == 0) {
+    if (term && term.length == 0) {
         return _suggestions;
     }
     
@@ -57,7 +57,7 @@ static Suggestion* sharedInstance = nil;
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"IncludeDictionary"]) {
         // Saving humanity by reducing a few CPU cycles
         [_suggestions addObjectsFromArray:[[CacheManager sharedInstance] arrayForKey:term]];
-        if (_suggestions && [_suggestions count] == 0) {
+        if (_suggestions && _suggestions.count == 0) {
             // Suggestions form AutoCorrect
             NSString* autoCorrect = [[AutoCorrect sharedInstance] find:term];
             if (autoCorrect) {
@@ -95,8 +95,8 @@ static Suggestion* sharedInstance = nil;
         NSInteger i;
         BOOL alreadySelected = FALSE;
         [[CacheManager sharedInstance] removeAllBase];
-        for (i = [term length]-1; i > 0; --i) {
-            NSString* suffix = [[Database sharedInstance] banglaForSuffix:[[term substringFromIndex:i] lowercaseString]];
+        for (i = term.length-1; i > 0; --i) {
+            NSString* suffix = [[Database sharedInstance] banglaForSuffix:[term substringFromIndex:i].lowercaseString];
             if (suffix) {
                 NSString* base = [term substringToIndex:i];
                 NSArray* cached = [[CacheManager sharedInstance] arrayForKey:base];
@@ -114,7 +114,7 @@ static Suggestion* sharedInstance = nil;
                         }
                         NSString* word;
                         // Again saving humanity cause I'm Superman, no I'm not drunk or on weed :D 
-                        NSInteger cutPos = [item length] - 1;
+                        NSInteger cutPos = item.length - 1;
                         
                         NSString* itemRMC = [item substringFromIndex:cutPos];   // RMC is Right Most Character
                         NSString* suffixLMC = [suffix substringToIndex:1];      // LMC is Left Most Character
@@ -135,7 +135,7 @@ static Suggestion* sharedInstance = nil;
                         // END
                         
                         // Reverse Suffix Caching 
-                        [[CacheManager sharedInstance] setBase:[NSArray arrayWithObjects:base, item, nil] forKey:word];
+                        [[CacheManager sharedInstance] setBase:@[base, item] forKey:word];
                         
                         // Check that the WORD is not already in the list
                         if (![_suggestions containsObject:word]) {

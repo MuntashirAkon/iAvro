@@ -14,9 +14,7 @@ static Candidates *_sharedInstance = nil;
 + (void)allocateSharedInstanceWithServer:(IMKServer *)server {
     if (_sharedInstance == nil) {
         _sharedInstance = [[self alloc] initWithServer:server panelType:kIMKSingleColumnScrollingCandidatePanel];
-        [_sharedInstance setAttributes:[NSDictionary 
-                                        dictionaryWithObject:[NSNumber numberWithBool:YES] 
-                                        forKey:IMKCandidatesSendServerKeyEventFirst]];
+        [_sharedInstance setAttributes:@{IMKCandidatesSendServerKeyEventFirst: @YES}];
         
         [_sharedInstance setDismissesAutomatically:NO];
     }

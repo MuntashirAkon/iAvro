@@ -13,16 +13,16 @@
 
 @synthesize autoCorrectItemsArray = _autoCorrectItemsArray;
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
-        NSMutableDictionary *autoCorrectEntries = [[AutoCorrect sharedInstance] autoCorrectEntries];
+        NSMutableDictionary *autoCorrectEntries = [AutoCorrect sharedInstance].autoCorrectEntries;
         _autoCorrectItemsArray = [[NSMutableArray alloc] init];
         for (id key in autoCorrectEntries) {
             AutoCorrectItem* item = [[AutoCorrectItem alloc] init];
             item.replace = key;
-            item.with = [autoCorrectEntries objectForKey:key];
+            item.with = autoCorrectEntries[key];
             [_autoCorrectItemsArray addObject:item];
         }
     }
@@ -31,9 +31,9 @@
 
 
 - (void)awakeFromNib {
-	[[self window] setContentSize:[_generalView frame].size];
-    [[[self window] contentView] addSubview:_generalView];
-    [[[self window] contentView] setWantsLayer:YES];
+	[self.window setContentSize:_generalView.frame.size];
+    [self.window.contentView addSubview:_generalView];
+    [self.window.contentView setWantsLayer:YES];
     
     // Load Credits
     [_aboutContent readRTFDFromFile:[[NSBundle mainBundle] pathForResource:@"Credits" ofType:@"rtfd"]];
@@ -41,13 +41,13 @@
 }
 
 - (NSRect)newFrameForNewContentView:(NSView*)view {
-    NSWindow* window = [self window];
-    NSRect newFrameRect = [window frameRectForContentRect:[view frame]];
-    NSRect oldFrameRect = [window frame];
+    NSWindow* window = self.window;
+    NSRect newFrameRect = [window frameRectForContentRect:view.frame];
+    NSRect oldFrameRect = window.frame;
     NSSize newSize = newFrameRect.size;
     NSSize oldSize = oldFrameRect.size;
     
-    NSRect frame = [window frame];
+    NSRect frame = window.frame;
     frame.size = newSize;
     frame.origin.y -= (newSize.height - oldSize.height);
     
@@ -71,7 +71,7 @@
 }
 
 - (BOOL)validateToolbarItem:(NSToolbarItem *)item {
-    if ([item tag] == _currentViewTag) {
+    if (item.tag == _currentViewTag) {
         return NO;
     }
     return YES;
@@ -86,12 +86,12 @@
     
     [NSAnimationContext beginGrouping];
     
-    if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagShift) {
-        [[NSAnimationContext currentContext] setDuration:1.0];
+    if (NSApp.currentEvent.modifierFlags & NSEventModifierFlagShift) {
+        [NSAnimationContext currentContext].duration = 1.0;
     }
     
-    [[[[self window] contentView] animator] replaceSubview:previousView with:view];
-    [[[self window] animator] setFrame:newFrame display:YES];
+    [[self.window.contentView animator] replaceSubview:previousView with:view];
+    [[self.window animator] setFrame:newFrame display:YES];
     
     [NSAnimationContext endGrouping];
 }
@@ -99,10 +99,10 @@
 - (IBAction)changePredicate:(id)sender {
     NSString *searchTerm = [[sender stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSPredicate *predicate = nil;
-    if ([searchTerm length]) {
+    if (searchTerm.length) {
         predicate = [NSPredicate predicateWithFormat:@"(replace CONTAINS[c] %@) OR (with CONTAINS %@)", searchTerm, searchTerm];
     }
-    [_autoCorrectController setFilterPredicate:predicate];
+    _autoCorrectController.filterPredicate = predicate;
 }
 
 @end

@@ -17,7 +17,7 @@ static NSString * const iAVRO_ERROR_DOMAIN = @"iAvroErrorDomain";
 static NSInteger const  iAVRO_INVALID_REPLACE_CODE = -1;
 static NSInteger const  iAVRO_INVALID_WITH_CODE = -2;
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -34,7 +34,7 @@ static NSInteger const  iAVRO_INVALID_WITH_CODE = -2;
 
 -(BOOL)validateWith:(id *)ioValue error:(NSError * __autoreleasing *)outError {
     // The with must not be nil, and must be at least one characters long.
-    if ((*ioValue == nil) || ([(NSString *)*ioValue length] < 1)) {
+    if ((*ioValue == nil) || (((NSString *)*ioValue).length < 1)) {
         if (outError != NULL) {
             NSString *errorString = NSLocalizedString(
                                                       @"Value of 'With' can't be empty",

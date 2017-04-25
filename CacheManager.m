@@ -31,7 +31,7 @@ static CacheManager* sharedInstance = nil;
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         // Weight PLIST File
@@ -68,14 +68,14 @@ static CacheManager* sharedInstance = nil;
 
 - (NSString*)getSharedFolder {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-    return [[[paths objectAtIndex:0] 
+    return [[paths[0] 
              stringByAppendingPathComponent:@"OmicronLab"] 
             stringByAppendingPathComponent:@"Avro Keyboard"];
 }
 
 // Weight Cache
 - (NSString*)stringForKey:(NSString*)aKey {
-    return [_weightCache objectForKey:aKey];
+    return _weightCache[aKey];
 }
 
 - (void)removeStringForKey:(NSString*)aKey {
@@ -83,16 +83,16 @@ static CacheManager* sharedInstance = nil;
 }
 
 - (void)setString:(NSString*)aString forKey:(NSString*)aKey {
-    [_weightCache setObject:aString forKey:aKey];
+    _weightCache[aKey] = aString;
 }
 
 // Phonetic Cache
 - (NSArray*)arrayForKey:(NSString*)aKey {
-    return [_phoneticCache objectForKey:aKey];
+    return _phoneticCache[aKey];
 }
 
 - (void)setArray:(NSArray*)anArray forKey:(NSString*)aKey {
-    [_phoneticCache setObject:anArray forKey:aKey];
+    _phoneticCache[aKey] = anArray;
 }
 
 // Base Cache
@@ -101,11 +101,11 @@ static CacheManager* sharedInstance = nil;
 }
 
 - (NSArray*)baseForKey:(NSString*)aKey {
-    return [_recentBaseCache objectForKey:aKey];
+    return _recentBaseCache[aKey];
 }
 
 - (void)setBase:(NSArray*)aBase forKey:(NSString*)aKey {
-    [_recentBaseCache setObject:aBase forKey:aKey];
+    _recentBaseCache[aKey] = aBase;
 }
 
 @end

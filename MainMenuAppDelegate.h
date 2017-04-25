@@ -11,6 +11,6 @@
 	IBOutlet NSMenu* _menu;
 }
 
--(NSMenu*)menu;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSMenu *menu;
 
 @end

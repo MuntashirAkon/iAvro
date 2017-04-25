@@ -18,7 +18,7 @@
 
 @synthesize prefix = _prefix, term = _term, suffix = _suffix;
 
-- (id)initWithServer:(IMKServer*)server delegate:(id)delegate client:(id)inputClient {
+- (instancetype)initWithServer:(IMKServer*)server delegate:(id)delegate client:(id)inputClient {
     
     self = [super initWithServer:server delegate:delegate client:inputClient];
     
@@ -36,34 +36,33 @@
 
 - (void)findCurrentCandidates {
     [_currentCandidates removeAllObjects];
-    if (_composedBuffer && [_composedBuffer length] > 0) {
+    if (_composedBuffer && _composedBuffer.length > 0) {
         NSString* regex = @"(^(?::`|\\.`|[-\\]\\\\~!@#&*()_=+\\[{}'\";<>/?|.,])*?(?=(?:,{2,}))|^(?::`|\\.`|[-\\]\\\\~!@#&*()_=+\\[{}'\";<>/?|.,])*)(.*?(?:,,)*)((?::`|\\.`|[-\\]\\\\~!@#&*()_=+\\[{}'\";<>/?|.,])*$)";
         NSArray* items = [_composedBuffer captureComponentsMatchedByRegex:regex];
-        if (items && [items count] > 0) {
+        if (items && items.count > 0) {
             // Split Prefix, Term & Suffix
-            [self setPrefix:[[AvroParser sharedInstance] parse:[items objectAtIndex:1]]];
-            [self setTerm:[items objectAtIndex:2]];
-            [self setSuffix:[[AvroParser sharedInstance] parse:[items objectAtIndex:3]]];
+            self.prefix = [[AvroParser sharedInstance] parse:items[1]];
+            self.term = items[2];
+            self.suffix = [[AvroParser sharedInstance] parse:items[3]];
             
-            _currentCandidates = [[Suggestion sharedInstance] getList:[self term]];
-            if (_currentCandidates && [_currentCandidates count] > 0) {
+            _currentCandidates = [[Suggestion sharedInstance] getList:self.term];
+            if (_currentCandidates && _currentCandidates.count > 0) {
                 NSString* prevString = nil;
                 if ([[NSUserDefaults standardUserDefaults] boolForKey:@"IncludeDictionary"]) {
                     _prevSelected = -1;
-                    prevString = [[CacheManager sharedInstance] stringForKey:[self term]];
+                    prevString = [[CacheManager sharedInstance] stringForKey:self.term];
                 }
                 int i;
-                for (i = 0; i < [_currentCandidates count]; ++i) {
-                    NSString* item = [_currentCandidates objectAtIndex:i];
+                for (i = 0; i < _currentCandidates.count; ++i) {
+                    NSString* item = _currentCandidates[i];
                     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"IncludeDictionary"] && 
                         _prevSelected && [item isEqualToString:prevString] ) {
                         _prevSelected = i;
                     }
-                    [_currentCandidates replaceObjectAtIndex:i withObject:
-                     [NSString stringWithFormat:@"%@%@%@", [self prefix], item, [self suffix]]];
+                    _currentCandidates[i] = [NSString stringWithFormat:@"%@%@%@", self.prefix, item, self.suffix];
                 }
                 // Emoticons                
-                if ([_composedBuffer isEqualToString:[self term]] == NO && 
+                if ([_composedBuffer isEqualToString:self.term] == NO && 
                     [[NSUserDefaults standardUserDefaults] boolForKey:@"IncludeDictionary"]) {
                     NSString* smily = [[AutoCorrect sharedInstance] find:_composedBuffer];
                     if (smily) {
@@ -72,14 +71,14 @@
                 }
             }
             else {
-                [_currentCandidates addObject:[self prefix]];
+                [_currentCandidates addObject:self.prefix];
             }
         }
     }
 }
 
 - (void)updateCandidatesPanel {
-    if (_currentCandidates && [_currentCandidates count] > 0) {
+    if (_currentCandidates && _currentCandidates.count > 0) {
         [[Candidates sharedInstance] updateCandidates];
         [[Candidates sharedInstance] show:kIMKLocateCandidatesBelowHint];
         if (_prevSelected > -1) {
@@ -106,17 +105,17 @@
 
 - (void)candidateSelectionChanged:(NSAttributedString*)candidateString {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"IncludeDictionary"]) {
-        if ([self term] && [[self term] length] > 0) {
-            BOOL comp = [[candidateString string] isEqualToString:[_currentCandidates objectAtIndex:0]];
+        if (self.term && self.term.length > 0) {
+            BOOL comp = [candidateString.string isEqualToString:_currentCandidates[0]];
             if ((comp && _prevSelected == -1) == NO) {
-                NSRange range = NSMakeRange([[self prefix] length], 
-                                            [candidateString length] - ([[self prefix] length] + [[self suffix] length]));
-                [[CacheManager sharedInstance] setString:[[candidateString string] substringWithRange:range] forKey:[self term]];
+                NSRange range = NSMakeRange(self.prefix.length, 
+                                            candidateString.length - (self.prefix.length + self.suffix.length));
+                [[CacheManager sharedInstance] setString:[candidateString.string substringWithRange:range] forKey:self.term];
                 
                 // Reverse Suffix Caching
-                NSArray* tmpArray = [[CacheManager sharedInstance] baseForKey:[candidateString string]];
-                if (tmpArray && [tmpArray count] > 0) {
-                    [[CacheManager sharedInstance] setString:[tmpArray objectAtIndex:1] forKey:[tmpArray objectAtIndex:0]];
+                NSArray* tmpArray = [[CacheManager sharedInstance] baseForKey:candidateString.string];
+                if (tmpArray && tmpArray.count > 0) {
+                    [[CacheManager sharedInstance] setString:tmpArray[1] forKey:tmpArray[0]];
                 }
             }
         }
@@ -152,7 +151,7 @@
 }
 
 - (void)clearCompositionBuffer {
-	[_composedBuffer deleteCharactersInRange:NSMakeRange(0, [_composedBuffer length])];	
+	[_composedBuffer deleteCharactersInRange:NSMakeRange(0, _composedBuffer.length)];	
 }
 
 /*
@@ -182,7 +181,7 @@
     // other words the system will not deliver a key down event to the application.
     // Returning NO means the original key down will be passed on to the client.
     if ([string isEqualToString:@" "]) {
-        if (_currentCandidates && [_currentCandidates count]) {
+        if (_currentCandidates && _currentCandidates.count) {
             // IMKCandidates:selectedCandidateString returns null for some reason, so null is commited when user presses enter.
             // Temporary fix for macOS sierra, use our own _selectedCandidateIndex instead.
             // TODO: Figure out why IMKCandidates:selectedCandidateString isn't working.
@@ -201,7 +200,7 @@
 
 - (void)deleteBackward:(id)sender {
     // We're called only when [compositionBuffer length] > 0
-    [_composedBuffer deleteCharactersInRange:NSMakeRange([_composedBuffer length] - 1, 1)];
+    [_composedBuffer deleteCharactersInRange:NSMakeRange(_composedBuffer.length - 1, 1)];
     [self findCurrentCandidates];
     [self updateComposition];
     [self updateCandidatesPanel];
@@ -241,7 +240,7 @@
 		// client application. For that reason we need to test in the case where
 		// we might not handle the command.
 		
-		if (_composedBuffer && [_composedBuffer length] > 0) {
+		if (_composedBuffer && _composedBuffer.length > 0) {
             if (aSelector == @selector(insertTab:) 
                 || aSelector == @selector(insertNewline:)
                 || aSelector == @selector(deleteBackward:)) {
@@ -268,7 +267,7 @@
 }
 
 - (NSMenu*)menu {
-    return [(MainMenuAppDelegate *)[NSApp delegate] menu];
+    return [(MainMenuAppDelegate *)NSApp.delegate menu];
 }
 
 @end
