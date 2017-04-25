@@ -24,7 +24,6 @@
 		3587CCD815A7C5E50074BFF1 /* preferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3587CCD715A7C5E50074BFF1 /* preferences.plist */; };
 		35895BF01597639A00F2A3ED /* AutoCorrect.m in Sources */ = {isa = PBXBuildFile; fileRef = 35895BEF1597639A00F2A3ED /* AutoCorrect.m */; };
 		35895BFE1597706800F2A3ED /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 35895BFA1597706800F2A3ED /* MainMenu.nib */; };
-		359C1C70159286750080E2FD /* Candidates.m in Sources */ = {isa = PBXBuildFile; fileRef = 359C1C6F159286750080E2FD /* Candidates.m */; };
 		35A273011847E28900689B17 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35A273001847E28900689B17 /* Images.xcassets */; };
 		35B007CB1597BF9A000CE409 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35B007CA1597BF9A000CE409 /* PreferencesController.m */; };
 		35B6EE6D15A0C4F2004C7C9B /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 35B6EE6C15A0C4F2004C7C9B /* NSString+Levenshtein.m */; };
@@ -36,6 +35,7 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A49A45DE95DCB21C7E66D8A5 /* libPods-Avro Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37361BFC8512F1D38B7962DD /* libPods-Avro Keyboard.a */; };
 		E136377D1EAF2E6E00822CF8 /* AutoCorrectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E136377C1EAF2E6E00822CF8 /* AutoCorrectItem.swift */; };
+		E136377F1EAF3EEA00822CF8 /* Candidates.swift in Sources */ = {isa = PBXBuildFile; fileRef = E136377E1EAF3EEA00822CF8 /* Candidates.swift */; };
 		E93074B70A5C264700470842 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
 		E93074E20A5C2F1200470842 /* AvroKeyboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93074E10A5C2F1200470842 /* AvroKeyboardController.m */; };
 /* End PBXBuildFile section */
@@ -69,8 +69,6 @@
 		35895BEE1597639A00F2A3ED /* AutoCorrect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoCorrect.h; sourceTree = "<group>"; };
 		35895BEF1597639A00F2A3ED /* AutoCorrect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoCorrect.m; sourceTree = "<group>"; };
 		35895BFB1597706800F2A3ED /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		359C1C6E159286750080E2FD /* Candidates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Candidates.h; sourceTree = "<group>"; };
-		359C1C6F159286750080E2FD /* Candidates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Candidates.m; sourceTree = "<group>"; };
 		35A273001847E28900689B17 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Avro Keyboard/Images.xcassets"; sourceTree = "<group>"; };
 		35B007C91597BF9A000CE409 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		35B007CA1597BF9A000CE409 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
@@ -87,6 +85,7 @@
 		9BE514399134C547D83E8518 /* Pods-Avro Keyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Avro Keyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Avro Keyboard/Pods-Avro Keyboard.debug.xcconfig"; sourceTree = "<group>"; };
 		E136377B1EAF2E6E00822CF8 /* AvroKeyboard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AvroKeyboard-Bridging-Header.h"; sourceTree = "<group>"; };
 		E136377C1EAF2E6E00822CF8 /* AutoCorrectItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCorrectItem.swift; sourceTree = "<group>"; };
+		E136377E1EAF3EEA00822CF8 /* Candidates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Candidates.swift; sourceTree = "<group>"; };
 		E93074B60A5C264700470842 /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = /System/Library/Frameworks/InputMethodKit.framework; sourceTree = "<absolute>"; };
 		E93074E00A5C2F1200470842 /* AvroKeyboardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvroKeyboardController.h; sourceTree = "<group>"; };
 		E93074E10A5C2F1200470842 /* AvroKeyboardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvroKeyboardController.m; sourceTree = "<group>"; };
@@ -239,8 +238,7 @@
 				350CED1A159CF3300009F0FE /* Suggestion.m */,
 				3553A33315A0009D00FE8491 /* CacheManager.h */,
 				3553A33415A0009E00FE8491 /* CacheManager.m */,
-				359C1C6E159286750080E2FD /* Candidates.h */,
-				359C1C6F159286750080E2FD /* Candidates.m */,
+				E136377E1EAF3EEA00822CF8 /* Candidates.swift */,
 			);
 			name = Others;
 			sourceTree = "<group>";
@@ -415,7 +413,7 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				E93074E20A5C2F1200470842 /* AvroKeyboardController.m in Sources */,
 				E136377D1EAF2E6E00822CF8 /* AutoCorrectItem.swift in Sources */,
-				359C1C70159286750080E2FD /* Candidates.m in Sources */,
+				E136377F1EAF3EEA00822CF8 /* Candidates.swift in Sources */,
 				35F4DE7F1594096B001EAC81 /* AvroParser.m in Sources */,
 				35895BF01597639A00F2A3ED /* AutoCorrect.m in Sources */,
 				35DBC86B1597A15B00B9772E /* MainMenuAppDelegate.m in Sources */,

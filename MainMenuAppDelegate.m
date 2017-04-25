@@ -10,7 +10,7 @@
 #import "CacheManager.h"
 #import "Database.h"
 #import "RegexParser.h"
-#import "Candidates.h"
+#import "AvroKeyboard-Swift.h"
 
 @implementation MainMenuAppDelegate
 

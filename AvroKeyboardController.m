@@ -8,11 +8,11 @@
 #import "AvroKeyboardController.h"
 #import "MainMenuAppDelegate.h"
 #import "Suggestion.h"
-#import "Candidates.h"
 #import "CacheManager.h"
 #import "RegexKitLite.h"
 #import "AvroParser.h"
 #import "AutoCorrect.h"
+#import "AvroKeyboard-Swift.h"
 
 @implementation AvroKeyboardController
 

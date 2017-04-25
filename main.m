@@ -10,7 +10,7 @@
 
 #import "AvroParser.h"
 #import "Suggestion.h"
-#import "Candidates.h"
+#import "AvroKeyboard-Swift.h"
 
 //Each input method needs a unique connection name. 
 //Note that periods and spaces are not allowed in the connection name.
@@ -47,7 +47,5 @@ int main(int argc, char *argv[]) {
 
     //finally run everything
 	[[NSApplication sharedApplication] run];
-	
-    [Candidates deallocateSharedInstance];
     return 0;
 }
