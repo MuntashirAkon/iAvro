@@ -11,8 +11,8 @@
 #import "RegexParser.h"
 #import "Database.h"
 #import "NSString+Levenshtein.h"
-#import "CacheManager.h"
 #import "RegexKitLite.h"
+#import "AvroKeyboard-Swift.h"
 
 static Suggestion* sharedInstance = nil;
 
@@ -56,7 +56,7 @@ static Suggestion* sharedInstance = nil;
     NSString* paresedString = [[AvroParser sharedInstance] parse:term];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"IncludeDictionary"]) {
         // Saving humanity by reducing a few CPU cycles
-        [_suggestions addObjectsFromArray:[[CacheManager sharedInstance] arrayForKey:term]];
+        [_suggestions addObjectsFromArray:[[CacheManager shared] arrayForKey:term]];
         if (_suggestions && _suggestions.count == 0) {
             // Suggestions form AutoCorrect
             NSString* autoCorrect = [[AutoCorrect sharedInstance] find:term];
@@ -87,23 +87,22 @@ static Suggestion* sharedInstance = nil;
                 }];
                 [_suggestions addObjectsFromArray:sortedDicList];
             }
-            
-            [[CacheManager sharedInstance] setArray:[_suggestions copy] forKey:term];
+            [[CacheManager shared] setArray:[_suggestions copy] forKey:term];
         }
         
         // Suggestions with Suffix
         NSInteger i;
         BOOL alreadySelected = FALSE;
-        [[CacheManager sharedInstance] removeAllBase];
+        [[CacheManager shared] removeAllBase];
         for (i = term.length-1; i > 0; --i) {
             NSString* suffix = [[Database sharedInstance] banglaForSuffix:[term substringFromIndex:i].lowercaseString];
             if (suffix) {
                 NSString* base = [term substringToIndex:i];
-                NSArray* cached = [[CacheManager sharedInstance] arrayForKey:base];
+                NSArray* cached = [[CacheManager shared] arrayForKey:base];
                 NSString* selected;
                 if (!alreadySelected) {
                     // Base user selection
-                    selected = [[CacheManager sharedInstance] stringForKey:base];
+                    selected = [[CacheManager shared] stringForKey:base];
                 }
                 // This should always exist, so it's just a safety check
                 if (cached) {
@@ -135,14 +134,14 @@ static Suggestion* sharedInstance = nil;
                         // END
                         
                         // Reverse Suffix Caching 
-                        [[CacheManager sharedInstance] setBase:@[base, item] forKey:word];
+                        [[CacheManager shared] setBase:@[base, item] forKey:word];
                         
                         // Check that the WORD is not already in the list
                         if (![_suggestions containsObject:word]) {
                             // Intelligent Selection
                             if (!alreadySelected && selected && [item isEqualToString:selected]) {
-                                if (![[CacheManager sharedInstance] stringForKey:term]) {
-                                    [[CacheManager sharedInstance] setString:word forKey:term];
+                                if (![[CacheManager shared] stringForKey:term]) {
+                                    [[CacheManager shared] setString:word forKey:term];
                                 }
                                 alreadySelected = TRUE;
                             }

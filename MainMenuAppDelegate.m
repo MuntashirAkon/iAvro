@@ -7,7 +7,6 @@
 
 #import "MainMenuAppDelegate.h"
 #import "AutoCorrect.h"
-#import "CacheManager.h"
 #import "Database.h"
 #import "RegexParser.h"
 #import "AvroKeyboard-Swift.h"
@@ -32,7 +31,7 @@
         NSLog(@"Loading Dictionary...");
         [Database sharedInstance];
         [RegexParser sharedInstance];
-        [CacheManager sharedInstance];
+        [CacheManager shared];
     }
     [AutoCorrect sharedInstance];
     [self configureCandidate];
@@ -46,7 +45,7 @@
 // Currently doesn't work
 - (void)applicationWillTerminate:(NSNotification *)notification {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"IncludeDictionary"]) {
-        [[CacheManager sharedInstance] persist];
+        [[CacheManager shared] persist];
     }
 }
 

@@ -8,7 +8,6 @@
 #import "AvroKeyboardController.h"
 #import "MainMenuAppDelegate.h"
 #import "Suggestion.h"
-#import "CacheManager.h"
 #import "RegexKitLite.h"
 #import "AvroParser.h"
 #import "AutoCorrect.h"
@@ -50,7 +49,7 @@
                 NSString* prevString = nil;
                 if ([[NSUserDefaults standardUserDefaults] boolForKey:@"IncludeDictionary"]) {
                     _prevSelected = -1;
-                    prevString = [[CacheManager sharedInstance] stringForKey:self.term];
+                    prevString = [[CacheManager shared] stringForKey:self.term];
                 }
                 int i;
                 for (i = 0; i < _currentCandidates.count; ++i) {
@@ -110,12 +109,12 @@
             if ((comp && _prevSelected == -1) == NO) {
                 NSRange range = NSMakeRange(self.prefix.length, 
                                             candidateString.length - (self.prefix.length + self.suffix.length));
-                [[CacheManager sharedInstance] setString:[candidateString.string substringWithRange:range] forKey:self.term];
+                [[CacheManager shared] setString:[candidateString.string substringWithRange:range] forKey:self.term];
                 
                 // Reverse Suffix Caching
-                NSArray* tmpArray = [[CacheManager sharedInstance] baseForKey:candidateString.string];
+                NSArray* tmpArray = [[CacheManager shared] baseForKey:candidateString.string];
                 if (tmpArray && tmpArray.count > 0) {
-                    [[CacheManager sharedInstance] setString:tmpArray[1] forKey:tmpArray[0]];
+                    [[CacheManager shared] setString:tmpArray[1] forKey:tmpArray[0]];
                 }
             }
         }
@@ -133,7 +132,7 @@
     if (_usedArrowKeys) {
         _usedArrowKeys = false;
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"IncludeDictionary"]) {
-            [[CacheManager sharedInstance] persist];
+            [[CacheManager shared] persist];
         }
     }
 }

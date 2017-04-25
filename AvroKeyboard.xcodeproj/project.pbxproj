@@ -16,7 +16,6 @@
 		350CED1C159CF3300009F0FE /* Suggestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 350CED1A159CF3300009F0FE /* Suggestion.m */; };
 		3512ED5A159785400085E81E /* preferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = 3512ED581597853F0085E81E /* preferences.nib */; };
 		3515102D184B99AE00D5059A /* autodict.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3515102C184B99AE00D5059A /* autodict.plist */; };
-		3553A33515A0009E00FE8491 /* CacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3553A33415A0009E00FE8491 /* CacheManager.m */; };
 		356B186915A445DA00091215 /* AutoCorrect.png in Resources */ = {isa = PBXBuildFile; fileRef = 356B186815A445DA00091215 /* AutoCorrect.png */; };
 		356B186D15A4499B00091215 /* Credits.png in Resources */ = {isa = PBXBuildFile; fileRef = 356B186B15A4499B00091215 /* Credits.png */; };
 		356B186E15A4499B00091215 /* General.png in Resources */ = {isa = PBXBuildFile; fileRef = 356B186C15A4499B00091215 /* General.png */; };
@@ -36,6 +35,7 @@
 		A49A45DE95DCB21C7E66D8A5 /* libPods-Avro Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37361BFC8512F1D38B7962DD /* libPods-Avro Keyboard.a */; };
 		E136377D1EAF2E6E00822CF8 /* AutoCorrectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E136377C1EAF2E6E00822CF8 /* AutoCorrectItem.swift */; };
 		E136377F1EAF3EEA00822CF8 /* Candidates.swift in Sources */ = {isa = PBXBuildFile; fileRef = E136377E1EAF3EEA00822CF8 /* Candidates.swift */; };
+		E13637811EAF545B00822CF8 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13637801EAF545B00822CF8 /* CacheManager.swift */; };
 		E93074B70A5C264700470842 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
 		E93074E20A5C2F1200470842 /* AvroKeyboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93074E10A5C2F1200470842 /* AvroKeyboardController.m */; };
 /* End PBXBuildFile section */
@@ -59,8 +59,6 @@
 		350CED1A159CF3300009F0FE /* Suggestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Suggestion.m; sourceTree = "<group>"; };
 		3512ED591597853F0085E81E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/preferences.nib; sourceTree = "<group>"; };
 		3515102C184B99AE00D5059A /* autodict.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = autodict.plist; sourceTree = "<group>"; };
-		3553A33315A0009D00FE8491 /* CacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheManager.h; sourceTree = "<group>"; };
-		3553A33415A0009E00FE8491 /* CacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheManager.m; sourceTree = "<group>"; };
 		356B186815A445DA00091215 /* AutoCorrect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AutoCorrect.png; path = Icons/AutoCorrect.png; sourceTree = "<group>"; };
 		356B186B15A4499B00091215 /* Credits.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Credits.png; path = Icons/Credits.png; sourceTree = "<group>"; };
 		356B186C15A4499B00091215 /* General.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = General.png; path = Icons/General.png; sourceTree = "<group>"; };
@@ -86,6 +84,7 @@
 		E136377B1EAF2E6E00822CF8 /* AvroKeyboard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AvroKeyboard-Bridging-Header.h"; sourceTree = "<group>"; };
 		E136377C1EAF2E6E00822CF8 /* AutoCorrectItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCorrectItem.swift; sourceTree = "<group>"; };
 		E136377E1EAF3EEA00822CF8 /* Candidates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Candidates.swift; sourceTree = "<group>"; };
+		E13637801EAF545B00822CF8 /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		E93074B60A5C264700470842 /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = /System/Library/Frameworks/InputMethodKit.framework; sourceTree = "<absolute>"; };
 		E93074E00A5C2F1200470842 /* AvroKeyboardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvroKeyboardController.h; sourceTree = "<group>"; };
 		E93074E10A5C2F1200470842 /* AvroKeyboardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvroKeyboardController.m; sourceTree = "<group>"; };
@@ -236,8 +235,7 @@
 				35B6EE6815A0C4A4004C7C9B /* Parsers */,
 				350CED19159CF3300009F0FE /* Suggestion.h */,
 				350CED1A159CF3300009F0FE /* Suggestion.m */,
-				3553A33315A0009D00FE8491 /* CacheManager.h */,
-				3553A33415A0009E00FE8491 /* CacheManager.m */,
+				E13637801EAF545B00822CF8 /* CacheManager.swift */,
 				E136377E1EAF3EEA00822CF8 /* Candidates.swift */,
 			);
 			name = Others;
@@ -416,12 +414,12 @@
 				E136377F1EAF3EEA00822CF8 /* Candidates.swift in Sources */,
 				35F4DE7F1594096B001EAC81 /* AvroParser.m in Sources */,
 				35895BF01597639A00F2A3ED /* AutoCorrect.m in Sources */,
+				E13637811EAF545B00822CF8 /* CacheManager.swift in Sources */,
 				35DBC86B1597A15B00B9772E /* MainMenuAppDelegate.m in Sources */,
 				35B007CB1597BF9A000CE409 /* PreferencesController.m in Sources */,
 				350CECEB159C45790009F0FE /* RegexParser.m in Sources */,
 				350CED1B159CF3300009F0FE /* Database.m in Sources */,
 				350CED1C159CF3300009F0FE /* Suggestion.m in Sources */,
-				3553A33515A0009E00FE8491 /* CacheManager.m in Sources */,
 				35B6EE6D15A0C4F2004C7C9B /* NSString+Levenshtein.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
