@@ -27,11 +27,6 @@ static NSInteger const  iAVRO_INVALID_WITH_CODE = -2;
     return self;
 }
 
--(BOOL)validateReplace:(id *)ioValue error:(NSError * __autoreleasing *)outError {
-    NSLog(@"Validating...");
-    return YES;
-}
-
 -(BOOL)validateWith:(id *)ioValue error:(NSError * __autoreleasing *)outError {
     // The with must not be nil, and must be at least one characters long.
     if ((*ioValue == nil) || (((NSString *)*ioValue).length < 1)) {
