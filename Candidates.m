@@ -23,7 +23,6 @@ static Candidates *_sharedInstance = nil;
 }
 
 + (void)deallocateSharedInstance {
-	[_sharedInstance release];
 }
 
 + (Candidates *)sharedInstance; {

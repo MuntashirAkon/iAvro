@@ -24,17 +24,11 @@
             item.replace = key;
             item.with = [autoCorrectEntries objectForKey:key];
             [_autoCorrectItemsArray addObject:item];
-            [item release];
         }
     }
     return self;
 }
 
-- (void)dealloc
-{
-    [_autoCorrectItemsArray release];
-    [super dealloc];
-}
 
 - (void)awakeFromNib {
 	[[self window] setContentSize:[_generalView frame].size];

@@ -31,22 +31,6 @@ static RegexParser* sharedInstance = nil;
     return self;
 }
 
-- (id)retain {
-    return self;
-}
-
-- (oneway void)release {
-    //do nothing
-}
-
-- (id)autorelease {
-    return self;
-}
-
-- (NSUInteger)retainCount {
-    return NSUIntegerMax;  // This is sooo not zero
-}
-
 - (id)init {
     self = [super init];
     if (self) {
@@ -75,14 +59,6 @@ static RegexParser* sharedInstance = nil;
     return self;
 }
 
-- (void)dealloc {
-    [_vowel release];
-    [_consonant release];
-    [_casesensitive release];
-    [_patterns release];
-    
-    [super dealloc];
-}
 
 - (NSString*)parse:(NSString *)string {
     if (!string || [string length] == 0) {
@@ -229,7 +205,6 @@ static RegexParser* sharedInstance = nil;
         // NSLog(@"cur: %s, start: %s, end: %s, prev: %s\n", cur, start, end, prev);
     }
     
-    [output autorelease];
     
     return output;
 }
@@ -296,7 +271,6 @@ static RegexParser* sharedInstance = nil;
             [fixed appendFormat:@"%C", [self smallCap:c]];
         }
     }
-    [fixed autorelease];
     return fixed;
 }
 

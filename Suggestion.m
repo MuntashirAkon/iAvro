@@ -38,22 +38,6 @@ static Suggestion* sharedInstance = nil;
     return self;
 }
 
-- (id)retain {
-    return self;
-}
-
-- (oneway void)release {
-    //do nothing
-}
-
-- (id)autorelease {
-    return self;
-}
-
-- (NSUInteger)retainCount {
-    return NSUIntegerMax;  // This is sooo not zero
-}
-
 - (id)init {
     self = [super init];
     if (self) {
@@ -62,10 +46,6 @@ static Suggestion* sharedInstance = nil;
     return self;
 }
 
-- (void)dealloc {
-    [_suggestions release];
-    [super dealloc];
-}
 
 - (NSMutableArray*)getList:(NSString*)term {
     if (term && [term length] == 0) {
@@ -108,7 +88,7 @@ static Suggestion* sharedInstance = nil;
                 [_suggestions addObjectsFromArray:sortedDicList];
             }
             
-            [[CacheManager sharedInstance] setArray:[[_suggestions copy] autorelease] forKey:term];
+            [[CacheManager sharedInstance] setArray:[_suggestions copy] forKey:term];
         }
         
         // Suggestions with Suffix

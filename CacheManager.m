@@ -31,22 +31,6 @@ static CacheManager* sharedInstance = nil;
     return self;
 }
 
-- (id)retain {
-    return self;
-}
-
-- (oneway void)release {
-    //do nothing
-}
-
-- (id)autorelease {
-    return self;
-}
-
-- (NSUInteger)retainCount {
-    return NSUIntegerMax;  // This is sooo not zero
-}
-
 - (id)init {
     self = [super init];
     if (self) {
@@ -76,10 +60,6 @@ static CacheManager* sharedInstance = nil;
 
 - (void)dealloc {
     [self persist];
-    [_phoneticCache release];
-    [_recentBaseCache release];
-    [_weightCache release];
-    [super dealloc];
 }
 
 - (void)persist {

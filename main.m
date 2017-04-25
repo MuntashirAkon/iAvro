@@ -22,7 +22,6 @@ IMKServer* server;
 int main(int argc, char *argv[]) {
     
     NSString* identifier;
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
     [AvroParser sharedInstance];
     [Suggestion sharedInstance];
@@ -50,7 +49,5 @@ int main(int argc, char *argv[]) {
 	[[NSApplication sharedApplication] run];
 	
     [Candidates deallocateSharedInstance];
-    [server release];
-    [pool release];
     return 0;
 }

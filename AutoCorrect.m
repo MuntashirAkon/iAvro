@@ -33,22 +33,6 @@ static AutoCorrect* sharedInstance = nil;
     return self;
 }
 
-- (id)retain {
-    return self;
-}
-
-- (oneway void)release {
-    //do nothing
-}
-
-- (id)autorelease {
-    return self;
-}
-
-- (NSUInteger)retainCount {
-    return NSUIntegerMax;  // This is sooo not zero
-}
-
 - (id)init {
     self = [super init];
     if (self) {
@@ -64,10 +48,6 @@ static AutoCorrect* sharedInstance = nil;
     return self;
 }
 
-- (void)dealloc {
-    [_autoCorrectEntries release];
-    [super dealloc];
-}
 
 // Instance Methods
 - (NSString*)find:(NSString*)term {

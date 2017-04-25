@@ -23,7 +23,7 @@
     self = [super initWithServer:server delegate:delegate client:inputClient];
     
 	if (self) {
-        _currentClient = [inputClient retain];
+        _currentClient = inputClient;
         _composedBuffer = [[NSMutableString alloc] initWithString:@""];
         _currentCandidates = [[NSMutableArray alloc] initWithCapacity:0];
         _prevSelected = -1;
@@ -33,15 +33,6 @@
 	return self;
 }
 
-- (void)dealloc {
-    [_prefix release];
-    [_term release];
-    [_suffix release];
-    [_currentCandidates release];
-    [_composedBuffer release];
-    [_currentClient release];
-	[super dealloc];
-}
 
 - (void)findCurrentCandidates {
     [_currentCandidates removeAllObjects];
@@ -54,7 +45,7 @@
             [self setTerm:[items objectAtIndex:2]];
             [self setSuffix:[[AvroParser sharedInstance] parse:[items objectAtIndex:3]]];
             
-            _currentCandidates = [[[Suggestion sharedInstance] getList:[self term]] retain];
+            _currentCandidates = [[Suggestion sharedInstance] getList:[self term]];
             if (_currentCandidates && [_currentCandidates count] > 0) {
                 NSString* prevString = nil;
                 if ([[NSUserDefaults standardUserDefaults] boolForKey:@"IncludeDictionary"]) {
@@ -157,7 +148,7 @@
 }
 
 - (id)composedString:(id)sender {
-	return [[[NSAttributedString alloc] initWithString:_composedBuffer] autorelease];
+	return [[NSAttributedString alloc] initWithString:_composedBuffer];
 }
 
 - (void)clearCompositionBuffer {

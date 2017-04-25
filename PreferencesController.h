@@ -19,6 +19,6 @@
     NSMutableArray*                     _autoCorrectItemsArray;
 }
 
-@property (assign) NSMutableArray* autoCorrectItemsArray;
+@property  NSMutableArray* autoCorrectItemsArray;
 
 @end

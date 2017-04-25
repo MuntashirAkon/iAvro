@@ -11,7 +11,7 @@
     NSMutableDictionary* _autoCorrectEntries;
 }
 
-@property (retain) NSMutableDictionary* autoCorrectEntries;
+@property (strong) NSMutableDictionary* autoCorrectEntries;
 
 + (AutoCorrect *)sharedInstance;
 

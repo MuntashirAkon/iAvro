@@ -22,9 +22,9 @@
     BOOL                    _usedArrowKeys;
 }
 
-@property (nonatomic, retain) NSString* prefix;
-@property (nonatomic, retain) NSString* term;
-@property (nonatomic, retain) NSString* suffix;
+@property (nonatomic, strong) NSString* prefix;
+@property (nonatomic, strong) NSString* term;
+@property (nonatomic, strong) NSString* suffix;
 
 //These are simple methods for managing our composition and original buffers
 //They are all simple wrappers around basic NSString methods.

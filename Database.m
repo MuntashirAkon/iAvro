@@ -33,96 +33,75 @@ static Database* sharedInstance = nil;
     return self;
 }
 
-- (id)retain {
-    return self;
-}
-
-- (oneway void)release {
-    //do nothing
-}
-
-- (id)autorelease {
-    return self;
-}
-
-- (NSUInteger)retainCount {
-    return NSUIntegerMax;  // This is sooo not zero
-}
-
 - (id)init {
     self = [super init];    
     if (self) {
         _db = [[NSMutableDictionary alloc] initWithCapacity:0];
         _suffix = [[NSMutableDictionary alloc] initWithCapacity:0];
         
-        NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc] init];
+        @autoreleasepool {
         
-        NSString* filePath = [[NSBundle mainBundle] pathForResource:@"database" ofType:@"db3"];
-        FMDatabase *sqliteDb = [FMDatabase databaseWithPath:filePath];
-        [sqliteDb open];
+            NSString* filePath = [[NSBundle mainBundle] pathForResource:@"database" ofType:@"db3"];
+            FMDatabase *sqliteDb = [FMDatabase databaseWithPath:filePath];
+            [sqliteDb open];
+            
+            [self loadTableWithName:@"A" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"AA" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"B" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"BH" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"C" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"CH" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"D" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"Dd" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"Ddh" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"Dh" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"E" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"G" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"Gh" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"H" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"I" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"II" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"J" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"JH" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"K" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"KH" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"Khandatta" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"L" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"M" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"N" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"NGA" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"NN" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"NYA" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"O" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"OI" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"OU" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"P" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"PH" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"R" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"RR" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"RRH" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"RRI" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"S" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"SH" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"SS" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"T" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"TH" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"TT" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"TTH" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"U" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"UU" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"Y" fromDatabase:sqliteDb];
+            [self loadTableWithName:@"Z" fromDatabase:sqliteDb];
+            
+            [self loadSuffixTableFromDatabase:sqliteDb];
+            
+            [sqliteDb close];
         
-        [self loadTableWithName:@"A" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"AA" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"B" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"BH" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"C" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"CH" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"D" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"Dd" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"Ddh" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"Dh" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"E" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"G" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"Gh" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"H" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"I" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"II" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"J" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"JH" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"K" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"KH" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"Khandatta" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"L" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"M" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"N" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"NGA" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"NN" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"NYA" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"O" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"OI" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"OU" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"P" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"PH" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"R" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"RR" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"RRH" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"RRI" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"S" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"SH" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"SS" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"T" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"TH" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"TT" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"TTH" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"U" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"UU" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"Y" fromDatabase:sqliteDb];
-        [self loadTableWithName:@"Z" fromDatabase:sqliteDb];
-        
-        [self loadSuffixTableFromDatabase:sqliteDb];
-        
-        [sqliteDb close];
-        
-        [loopPool release];
+        }
     }
     return self;
 }
 
-- (void)dealloc {
-    [_db release];
-    [_suffix release];
-    [super dealloc];
-}
 
 - (void)loadTableWithName:(NSString*)name fromDatabase:(FMDatabase*)sqliteDb {
     NSMutableArray* items = [[NSMutableArray alloc] init];
@@ -141,7 +120,6 @@ static Database* sharedInstance = nil;
     [_db setObject:items forKey:[name lowercaseString]];
     
     [results close];
-    [items release];
 }
 
 - (void)loadSuffixTableFromDatabase:(FMDatabase*)sqliteDb {
@@ -277,8 +255,6 @@ static Database* sharedInstance = nil;
         }
     }
     
-    [tableList release];
-    [suggestions autorelease];
     
     return [suggestions allObjects];
 }
