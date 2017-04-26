@@ -8,7 +8,6 @@
 #import "Suggestion.h"
 #import "AvroParser.h"
 #import "RegexParser.h"
-#import "Database.h"
 #import "NSString+Levenshtein.h"
 #import "RegexKitLite.h"
 #import "AvroKeyboard-Swift.h"
@@ -64,7 +63,7 @@ static Suggestion* sharedInstance = nil;
             }
             
             // Suggestions from Dictionary
-            NSArray* dicList = [[Database sharedInstance] find:term];
+            NSArray* dicList = [[Database shared] find:term];
             if (dicList) {
                 // Remove autoCorrect if it is already in the dictionary
                 // PROPOSAL: don't add the autoCorrect, which matches with the dictionary entry
@@ -94,7 +93,7 @@ static Suggestion* sharedInstance = nil;
         BOOL alreadySelected = FALSE;
         [[CacheManager shared] removeAllBase];
         for (i = term.length-1; i > 0; --i) {
-            NSString* suffix = [[Database sharedInstance] banglaForSuffix:[term substringFromIndex:i].lowercaseString];
+            NSString* suffix = [[Database shared] banglaForSuffix:[term substringFromIndex:i].lowercaseString];
             if (suffix) {
                 NSString* base = [term substringToIndex:i];
                 NSArray* cached = [[CacheManager shared] arrayForKey:base];

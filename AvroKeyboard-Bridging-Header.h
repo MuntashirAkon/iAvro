@@ -3,3 +3,6 @@
 //
 
 #import "AvroParser.h"
+#import "FMDatabase.h"
+#import "RegexKitLite.h"
+#import "RegexParser.h"

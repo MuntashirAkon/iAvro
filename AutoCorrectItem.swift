@@ -9,6 +9,8 @@
 import Foundation
 
 
+/// A simple model wrapper class for auto currect entry. this class is only used for databinding in PreferencesController tableview
+ 
 @objc public class AutoCorrectItem: NSObject {
     var replace: String
     var with: String

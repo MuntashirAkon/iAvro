@@ -6,7 +6,6 @@
 //
 
 #import "MainMenuAppDelegate.h"
-#import "Database.h"
 #import "RegexParser.h"
 #import "AvroKeyboard-Swift.h"
 
@@ -28,7 +27,7 @@
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"IncludeDictionary"]) {
         NSLog(@"Loading Dictionary...");
-        [Database sharedInstance];
+        [Database shared];
         [RegexParser sharedInstance];
         [CacheManager shared];
     }
