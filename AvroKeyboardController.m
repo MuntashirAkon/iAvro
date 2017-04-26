@@ -10,7 +10,6 @@
 #import "Suggestion.h"
 #import "RegexKitLite.h"
 #import "AvroParser.h"
-#import "AutoCorrect.h"
 #import "AvroKeyboard-Swift.h"
 
 @implementation AvroKeyboardController
@@ -63,7 +62,7 @@
                 // Emoticons                
                 if ([_composedBuffer isEqualToString:self.term] == NO && 
                     [[NSUserDefaults standardUserDefaults] boolForKey:@"IncludeDictionary"]) {
-                    NSString* smily = [[AutoCorrect sharedInstance] find:_composedBuffer];
+                    NSString* smily = [[AutoCorrect shared] find:_composedBuffer];
                     if (smily) {
                         [_currentCandidates insertObject:smily atIndex:0];
                     }

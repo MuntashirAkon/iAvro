@@ -6,7 +6,6 @@
 //
 
 #import "PreferencesController.h"
-#import "AutoCorrect.h"
 #import "AvroKeyboard-Swift.h"
 
 @implementation PreferencesController
@@ -17,7 +16,7 @@
 {
     self = [super init];
     if (self) {
-        NSMutableDictionary *autoCorrectEntries = [AutoCorrect sharedInstance].autoCorrectEntries;
+        NSMutableDictionary *autoCorrectEntries = [AutoCorrect shared].entries;
         _autoCorrectItemsArray = [[NSMutableArray alloc] init];
         for (id key in autoCorrectEntries) {
             AutoCorrectItem* item = [[AutoCorrectItem alloc] initWithReplace:key with:autoCorrectEntries[key]];

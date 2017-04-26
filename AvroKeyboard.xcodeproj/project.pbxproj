@@ -21,7 +21,6 @@
 		356B186E15A4499B00091215 /* General.png in Resources */ = {isa = PBXBuildFile; fileRef = 356B186C15A4499B00091215 /* General.png */; };
 		3578E8FD15A26EC100C1FB8E /* Credits.rtfd in Resources */ = {isa = PBXBuildFile; fileRef = 3578E8FC15A26EC100C1FB8E /* Credits.rtfd */; };
 		3587CCD815A7C5E50074BFF1 /* preferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3587CCD715A7C5E50074BFF1 /* preferences.plist */; };
-		35895BF01597639A00F2A3ED /* AutoCorrect.m in Sources */ = {isa = PBXBuildFile; fileRef = 35895BEF1597639A00F2A3ED /* AutoCorrect.m */; };
 		35895BFE1597706800F2A3ED /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 35895BFA1597706800F2A3ED /* MainMenu.nib */; };
 		35A273011847E28900689B17 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35A273001847E28900689B17 /* Images.xcassets */; };
 		35B007CB1597BF9A000CE409 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35B007CA1597BF9A000CE409 /* PreferencesController.m */; };
@@ -36,6 +35,7 @@
 		E136377D1EAF2E6E00822CF8 /* AutoCorrectItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E136377C1EAF2E6E00822CF8 /* AutoCorrectItem.swift */; };
 		E136377F1EAF3EEA00822CF8 /* Candidates.swift in Sources */ = {isa = PBXBuildFile; fileRef = E136377E1EAF3EEA00822CF8 /* Candidates.swift */; };
 		E13637811EAF545B00822CF8 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13637801EAF545B00822CF8 /* CacheManager.swift */; };
+		E16A30D91EB0C4B70046954F /* AutoCorrect.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16A30D81EB0C4B70046954F /* AutoCorrect.swift */; };
 		E93074B70A5C264700470842 /* InputMethodKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E93074B60A5C264700470842 /* InputMethodKit.framework */; };
 		E93074E20A5C2F1200470842 /* AvroKeyboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93074E10A5C2F1200470842 /* AvroKeyboardController.m */; };
 /* End PBXBuildFile section */
@@ -64,8 +64,6 @@
 		356B186C15A4499B00091215 /* General.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = General.png; path = Icons/General.png; sourceTree = "<group>"; };
 		3578E8FC15A26EC100C1FB8E /* Credits.rtfd */ = {isa = PBXFileReference; lastKnownFileType = wrapper.rtfd; path = Credits.rtfd; sourceTree = "<group>"; };
 		3587CCD715A7C5E50074BFF1 /* preferences.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = preferences.plist; sourceTree = "<group>"; };
-		35895BEE1597639A00F2A3ED /* AutoCorrect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoCorrect.h; sourceTree = "<group>"; };
-		35895BEF1597639A00F2A3ED /* AutoCorrect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoCorrect.m; sourceTree = "<group>"; };
 		35895BFB1597706800F2A3ED /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		35A273001847E28900689B17 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Avro Keyboard/Images.xcassets"; sourceTree = "<group>"; };
 		35B007C91597BF9A000CE409 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
@@ -85,6 +83,7 @@
 		E136377C1EAF2E6E00822CF8 /* AutoCorrectItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCorrectItem.swift; sourceTree = "<group>"; };
 		E136377E1EAF3EEA00822CF8 /* Candidates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Candidates.swift; sourceTree = "<group>"; };
 		E13637801EAF545B00822CF8 /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		E16A30D81EB0C4B70046954F /* AutoCorrect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCorrect.swift; sourceTree = "<group>"; };
 		E93074B60A5C264700470842 /* InputMethodKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputMethodKit.framework; path = /System/Library/Frameworks/InputMethodKit.framework; sourceTree = "<absolute>"; };
 		E93074E00A5C2F1200470842 /* AvroKeyboardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvroKeyboardController.h; sourceTree = "<group>"; };
 		E93074E10A5C2F1200470842 /* AvroKeyboardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvroKeyboardController.m; sourceTree = "<group>"; };
@@ -244,8 +243,7 @@
 		35B6EE6815A0C4A4004C7C9B /* Parsers */ = {
 			isa = PBXGroup;
 			children = (
-				35895BEE1597639A00F2A3ED /* AutoCorrect.h */,
-				35895BEF1597639A00F2A3ED /* AutoCorrect.m */,
+				E16A30D81EB0C4B70046954F /* AutoCorrect.swift */,
 				35F4DE7D1594096B001EAC81 /* AvroParser.h */,
 				35F4DE7E1594096B001EAC81 /* AvroParser.m */,
 				350CECE3159C45790009F0FE /* RegexParser.h */,
@@ -413,7 +411,6 @@
 				E136377D1EAF2E6E00822CF8 /* AutoCorrectItem.swift in Sources */,
 				E136377F1EAF3EEA00822CF8 /* Candidates.swift in Sources */,
 				35F4DE7F1594096B001EAC81 /* AvroParser.m in Sources */,
-				35895BF01597639A00F2A3ED /* AutoCorrect.m in Sources */,
 				E13637811EAF545B00822CF8 /* CacheManager.swift in Sources */,
 				35DBC86B1597A15B00B9772E /* MainMenuAppDelegate.m in Sources */,
 				35B007CB1597BF9A000CE409 /* PreferencesController.m in Sources */,
@@ -421,6 +418,7 @@
 				350CED1B159CF3300009F0FE /* Database.m in Sources */,
 				350CED1C159CF3300009F0FE /* Suggestion.m in Sources */,
 				35B6EE6D15A0C4F2004C7C9B /* NSString+Levenshtein.m in Sources */,
+				E16A30D91EB0C4B70046954F /* AutoCorrect.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

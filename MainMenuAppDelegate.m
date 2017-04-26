@@ -6,7 +6,6 @@
 //
 
 #import "MainMenuAppDelegate.h"
-#import "AutoCorrect.h"
 #import "Database.h"
 #import "RegexParser.h"
 #import "AvroKeyboard-Swift.h"
@@ -33,7 +32,7 @@
         [RegexParser sharedInstance];
         [CacheManager shared];
     }
-    [AutoCorrect sharedInstance];
+    [AutoCorrect shared];
     [self configureCandidate];
 }
 

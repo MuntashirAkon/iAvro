@@ -7,7 +7,6 @@
 
 #import "Suggestion.h"
 #import "AvroParser.h"
-#import "AutoCorrect.h"
 #import "RegexParser.h"
 #import "Database.h"
 #import "NSString+Levenshtein.h"
@@ -59,7 +58,7 @@ static Suggestion* sharedInstance = nil;
         [_suggestions addObjectsFromArray:[[CacheManager shared] arrayForKey:term]];
         if (_suggestions && _suggestions.count == 0) {
             // Suggestions form AutoCorrect
-            NSString* autoCorrect = [[AutoCorrect sharedInstance] find:term];
+            NSString* autoCorrect = [[AutoCorrect shared] find:term];
             if (autoCorrect) {
                 [_suggestions addObject:autoCorrect];
             }
